@@ -1,0 +1,25 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" version="25.0.3">
+  <diagram name="Page-1" id="B48VcXhbo7qPQQUnQON5">
+    <mxGraphModel dx="602" dy="701" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="D_0i9wkY8XV3pc_3-fOI-1" value="&lt;b&gt;Hello World&lt;/b&gt;&lt;div&gt;[Software System]&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Allows customers to get greetings in different languages from different planets.&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D4E1F5;" vertex="1" parent="1">
+          <mxGeometry x="360" y="430" width="150" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="D_0i9wkY8XV3pc_3-fOI-2" value="&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;b&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;User&lt;/b&gt;&lt;div&gt;[Person]&lt;/div&gt;" style="shape=actor;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="386.11" y="220" width="97.78" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="D_0i9wkY8XV3pc_3-fOI-5" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="D_0i9wkY8XV3pc_3-fOI-2" target="D_0i9wkY8XV3pc_3-fOI-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="520" as="sourcePoint" />
+            <mxPoint x="520" y="520" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="D_0i9wkY8XV3pc_3-fOI-6" value="Requests localized greetings [HTTP]" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="D_0i9wkY8XV3pc_3-fOI-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
