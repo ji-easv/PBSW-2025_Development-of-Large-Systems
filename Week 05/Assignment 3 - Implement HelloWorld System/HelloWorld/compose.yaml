@@ -1,0 +1,48 @@
+﻿services:
+  ui:
+    image: ui
+    build:
+      context: .
+      dockerfile: UI/Dockerfile
+    ports:
+      - "5000:80"
+    depends_on:
+      - greetingservice
+      - planetservice
+      - languageservice
+    networks:
+      - hello-world-network
+  
+  greetingservice:
+    image: greetingservice
+    build:
+      context: .
+      dockerfile: GreetingService/Dockerfile
+    deploy:
+      replicas: 2
+    networks:
+      - hello-world-network
+
+  languageservice:
+    image: languageservice
+    build:
+      context: .
+      dockerfile: LanguageService/Dockerfile
+    deploy:
+      replicas: 2
+    networks:
+      - hello-world-network
+
+  planetservice:
+    image: planetservice
+    build:
+      context: .
+      dockerfile: PlanetService/Dockerfile
+    deploy:
+      replicas: 2
+    networks:
+      - hello-world-network
+
+networks:
+  hello-world-network:
+    driver: bridge

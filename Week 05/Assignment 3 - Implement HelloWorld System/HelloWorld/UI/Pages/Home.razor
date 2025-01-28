@@ -1,0 +1,46 @@
+﻿@page "/"
+@inject HttpClient Http
+
+<h3>Select a Language</h3>
+
+<!-- Dropdown to select a language -->
+<select @onchange="OnLanguageChanged" class="form-control">
+    <option value="">Select a language</option>
+    @foreach (var language in languages)
+    {
+        <option value="@language">@language</option>
+    }
+</select>
+
+@if (!string.IsNullOrEmpty(selectedLanguage))
+{
+    <p><strong>Greeting:</strong> @greeting</p>
+    <p><strong>Planet:</strong> @planet</p>
+}
+
+@code {
+    private List<string> languages = new List<string>();
+    private string selectedLanguage;
+    private string greeting;
+    private string planet;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Get the list of languages from the API
+        languages = await Http.GetFromJsonAsync<List<string>>("http://languageservice/languages") ?? ["en"];
+    }
+
+    private async Task OnLanguageChanged(ChangeEventArgs e)
+    {
+        selectedLanguage = e.Value.ToString();
+
+        if (!string.IsNullOrEmpty(selectedLanguage))
+        {
+            // Call the GetGreeting endpoint
+            greeting = await Http.GetStringAsync($"http://greetingservice/greeting?language={selectedLanguage}");
+
+            // Call the GetPlanet endpoint
+            planet = await Http.GetStringAsync($"http://planetservice/planet?language={selectedLanguage}");
+        }
+    }
+}

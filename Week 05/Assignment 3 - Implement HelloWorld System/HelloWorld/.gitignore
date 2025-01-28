@@ -1,0 +1,46 @@
+﻿# User-specific files
+*.user
+*.userosscache
+*.suo
+*.userprefs
+
+# User-specific configurations
+.vscode/
+.idea/
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Dd]Release/
+[Dd]ebug/
+bin/
+obj/
+
+# .NET Core files
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# ASP.NET Core specific files
+wwwroot/
+appsettings.json
+appsettings.Development.json
+appsettings.Production.json
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows Installer files (Windows-specific)
+*.pdb
+
+# IIS Express
+/IISExpress/
+
+# JetBrains Rider
+.idea/
+
+# Node.js dependencies (for projects using Node.js)
+node_modul
