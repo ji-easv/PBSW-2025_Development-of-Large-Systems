@@ -1,0 +1,11 @@
+services:
+  service-a:
+    image: boulundeasv/compose-service-a
+    depends_on: 
+      service-b:
+        condition: service_started
+  service-b:
+    image: boulundeasv/compose-service-b
+    hostname: mr-b
+    ports:
+      - "8888:80"
