@@ -6,7 +6,7 @@ namespace PlanetService;
 [Route("[controller]")]
 public class PlanetController(ILogger<PlanetController> logger, PlanetService planetService) : ControllerBase
 {
-    [HttpGet(Name = "planet")]
+    [HttpGet]
     public string GetPlanet([FromQuery] string language)
     {
         logger.LogInformation("Getting planet on {machine}", Environment.MachineName);

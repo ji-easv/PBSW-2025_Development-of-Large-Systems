@@ -6,7 +6,7 @@ namespace LanguageService;
 [Route("[controller]")]
 public class LanguageController(ILogger<LanguageController> logger, LanguageService languageService) : ControllerBase
 {
-    [HttpGet(Name = "languages")]
+    [HttpGet("list")]
     public IEnumerable<string> GetLanguages()
     {
         logger.LogInformation("Getting languages on ${Environment.MachineName}");

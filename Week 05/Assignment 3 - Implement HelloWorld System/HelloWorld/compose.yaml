@@ -19,7 +19,7 @@
       context: .
       dockerfile: GreetingService/Dockerfile
     deploy:
-      replicas: 2
+      replicas: 1
     networks:
       - hello-world-network
 
@@ -29,7 +29,7 @@
       context: .
       dockerfile: LanguageService/Dockerfile
     deploy:
-      replicas: 2
+      replicas: 1
     networks:
       - hello-world-network
 
@@ -39,7 +39,7 @@
       context: .
       dockerfile: PlanetService/Dockerfile
     deploy:
-      replicas: 2
+      replicas: 1
     networks:
       - hello-world-network
 

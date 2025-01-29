@@ -1,5 +1,6 @@
 ﻿@page "/"
 @inject HttpClient Http
+@inject IJSRuntime JS
 
 <h3>Select a Language</h3>
 
@@ -19,15 +20,21 @@
 }
 
 @code {
-    private List<string> languages = new List<string>();
+    private List<string> languages = [];
     private string selectedLanguage;
     private string greeting;
     private string planet;
 
     protected override async Task OnInitializedAsync()
     {
+        try {
+            // Get the list of languages from the API
+            languages = await Http.GetFromJsonAsync<List<string>>("http://localhost:5000/language/list") ?? ["en"];
+        } catch (Exception ex) {
+            Console.WriteLine(ex.Message);
+        }
         // Get the list of languages from the API
-        languages = await Http.GetFromJsonAsync<List<string>>("http://languageservice/languages") ?? ["en"];
+        // languages = await Http.GetFromJsonAsync<List<string>>("http://localhost:5000/languages") ?? ["en"];
     }
 
     private async Task OnLanguageChanged(ChangeEventArgs e)
@@ -37,10 +44,10 @@
         if (!string.IsNullOrEmpty(selectedLanguage))
         {
             // Call the GetGreeting endpoint
-            greeting = await Http.GetStringAsync($"http://greetingservice/greeting?language={selectedLanguage}");
+            greeting = await Http.GetStringAsync($"http://localhost:5000/greeting?language={selectedLanguage}");
 
             // Call the GetPlanet endpoint
-            planet = await Http.GetStringAsync($"http://planetservice/planet?language={selectedLanguage}");
+            planet = await Http.GetStringAsync($"http://localhost:5000/planet?language={selectedLanguage}");
         }
     }
 }

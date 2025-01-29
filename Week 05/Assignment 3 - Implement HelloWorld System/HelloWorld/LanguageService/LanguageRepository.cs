@@ -6,26 +6,12 @@ public class LanguageRepository
     {
         return new List<string>
         {
-            "English",
-            "Spanish",
-            "French",
-            "Mandarin Chinese",
-            "Hindi",
-            "Arabic",
-            "Portuguese",
-            "Bengali",
-            "Russian",
-            "Japanese",
-            "German",
-            "Korean",
-            "Italian",
-            "Turkish",
-            "Dutch",
-            "Swedish",
-            "Polish",
-            "Thai",
-            "Vietnamese",
-            "Greek"
+            "en", // English
+            "de", // German
+            "sk", // Slovak
+            "da", // Danish
+            "es", // Spanish
+            "fr", // French
         };
     }
 }

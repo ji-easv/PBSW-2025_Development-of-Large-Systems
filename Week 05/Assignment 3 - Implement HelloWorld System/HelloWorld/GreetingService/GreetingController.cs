@@ -6,7 +6,7 @@ namespace GreetingService;
 [Route("[controller]")]
 public class GreetingController(ILogger<GreetingController> logger, GreetingService greetingService) : ControllerBase
 {
-    [HttpGet(Name = "greeting")]
+    [HttpGet]
     public string GetGreeting([FromQuery] string language)
     {
         logger.LogInformation("Getting greeting for language {language} on {machine}", language, Environment.MachineName);

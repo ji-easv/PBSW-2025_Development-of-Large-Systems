@@ -19,6 +19,9 @@ FROM nginx:alpine AS final
 # Copy the published app to Nginx's public directory
 COPY --from=build /app/publish/wwwroot /usr/share/nginx/html
 
+# Copy the custom NGINX config
+COPY UI/default.conf /etc/nginx/conf.d/
+
 # Expose the port that Nginx will serve on
 EXPOSE 80
 
