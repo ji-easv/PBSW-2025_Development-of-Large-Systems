@@ -1,23 +1,73 @@
 ﻿@page "/"
 @inject HttpClient Http
-@inject IJSRuntime JS
 
-<h3>Select a Language</h3>
+<div class="content-container">
+    <div class="greeting">
+        <h1>@GetGreeting()</h1>
+    </div>
 
-<!-- Dropdown to select a language -->
-<select @onchange="OnLanguageChanged" class="form-control">
-    <option value="">Select a language</option>
-    @foreach (var language in languages)
-    {
-        <option value="@language">@language</option>
+    <div>
+        <select @onchange="OnLanguageChanged" class="form-control custom-select">
+            <option value="">Select a language</option>
+            @foreach (var language in languages)
+            {
+                <option value="@language">@language</option>
+            }
+        </select>
+    </div>
+</div>
+
+<style>
+    .content-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100vw;
+        background-color: #957186;
+        text-align: center;
+        font-weight: 900;
+        font-family: "Montserrat", serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+        gap: 1rem;
     }
-</select>
 
-@if (!string.IsNullOrEmpty(selectedLanguage))
-{
-    <p><strong>Greeting:</strong> @greeting</p>
-    <p><strong>Planet:</strong> @planet</p>
-}
+    .form-control {
+        width: 250px;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .greeting {
+        font-size: 30rem;
+        color: #201D1F;
+        font-weight: 900;
+    }
+
+    .custom-select {
+        background-color: #201D1F;
+        color: #f0f8ff;
+        padding: 0.5rem;
+        border-radius: 0.25rem;
+        font-size: 1rem;
+        border: 1px solid #1A110F;
+    }
+
+    .custom-select:focus {
+        background-color: #403A3E;
+        color: #f0f8ff;
+        outline: none;
+        box-shadow: 0 0 0 2px #f0f8ff;
+        border: 1px solid #1A110F;
+    }
+
+    .custom-select option {
+        background-color: #201D1F;
+        color: #f0f8ff;
+    }
+</style>
 
 @code {
     private List<string> languages = [];
@@ -27,14 +77,8 @@
 
     protected override async Task OnInitializedAsync()
     {
-        try {
-            // Get the list of languages from the API
-            languages = await Http.GetFromJsonAsync<List<string>>("http://localhost:5000/language/list") ?? ["en"];
-        } catch (Exception ex) {
-            Console.WriteLine(ex.Message);
-        }
         // Get the list of languages from the API
-        // languages = await Http.GetFromJsonAsync<List<string>>("http://localhost:5000/languages") ?? ["en"];
+        languages = await Http.GetFromJsonAsync<List<string>>("http://localhost:5000/language/list") ?? ["en"];
     }
 
     private async Task OnLanguageChanged(ChangeEventArgs e)
@@ -49,5 +93,14 @@
             // Call the GetPlanet endpoint
             planet = await Http.GetStringAsync($"http://localhost:5000/planet?language={selectedLanguage}");
         }
+    }
+    
+    private string GetGreeting()
+    {
+        if (string.IsNullOrEmpty(greeting) || string.IsNullOrEmpty(selectedLanguage))
+        {
+            return "Select a language please :(";
+        }
+        return $"{greeting}, {planet}";
     }
 }
