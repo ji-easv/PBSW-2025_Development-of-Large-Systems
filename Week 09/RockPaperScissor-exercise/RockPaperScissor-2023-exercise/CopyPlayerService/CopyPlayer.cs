@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Events;
 using Helpers;
 using Serilog;
@@ -11,7 +12,7 @@ public class CopyPlayer : IPlayer
 
     public PlayerMovedEvent MakeMove(GameStartedEvent e)
     {
-        using var activity = Monitoring.ActivitySource.StartActivity();
+        using var activity = Monitoring.ActivitySource.StartActivity("MakeMove", ActivityKind.Producer, e.ActivityContext);
         
         Move move = Move.Paper;
         if (_previousMoves.Count > 2)
@@ -26,12 +27,14 @@ public class CopyPlayer : IPlayer
             PlayerId = PlayerId,
             Move = move
         };
+        
+        moveEvent.PropagateContext(activity);
         return moveEvent;
     }
 
     public void ReceiveResult(GameFinishedEvent e)
     {
-        using var activity = Monitoring.ActivitySource.StartActivity();
+        using var activity = Monitoring.ActivitySource.StartActivity("ReceiveResult", ActivityKind.Consumer, e.ActivityContext);
         
         var otherMove = e.Moves.SingleOrDefault(m => m.Key != PlayerId).Value;
         Log.Logger.Debug("Received result from game {GameId} - other player played {Move} queue now has {QueueSize} elements", e.GameId, otherMove, _previousMoves.Count);

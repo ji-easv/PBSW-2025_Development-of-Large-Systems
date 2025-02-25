@@ -1,6 +1,8 @@
 using System.Diagnostics;
 using Events;
 using Helpers;
+using OpenTelemetry;
+using OpenTelemetry.Context.Propagation;
 using Serilog;
 
 namespace Monolith;
@@ -19,6 +21,8 @@ public class Game
         
         var startEvent = new GameStartedEvent { GameId = gameId };
         Log.Logger.Debug("Started new game with id {Id}", gameId);
+        
+        startEvent.PropagateContext(activity);
         return startEvent;
     }
 
@@ -64,7 +68,7 @@ public class Game
 
     public GameFinishedEvent? ReceivePlayerEvent(PlayerMovedEvent e)
     {
-        using var activity = Monitoring.ActivitySource.StartActivity();
+        using var activity = Monitoring.ActivitySource.StartActivity("ReceivePlayerEvent", ActivityKind.Consumer, e.ActivityContext);
         
         _games.TryGetValue(e.GameId, out var game);
         if (game == null)
@@ -83,6 +87,7 @@ public class Game
                 KeyValuePair<string?, Move> p2 = game.Moves.Skip(1).First()!;
 
                 var finishedEvent = PrepareWinnerAnnouncement(game, p1, p2);
+                finishedEvent.PropagateContext(activity);
                 _games.Remove(game.GameId);
                 return finishedEvent;
             }
@@ -101,6 +106,7 @@ public class Game
             Moves = game.Moves,
             WinnerId = DeclareWinner(p1!, p2!)
         };
+        
         return finishedEvent;
     }
 }

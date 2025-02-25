@@ -1,6 +1,8 @@
+using Helpers;
+
 namespace Events;
 
-public class PlayerMovedEvent
+public class PlayerMovedEvent : EnhancedMessage
 {
     public Guid GameId { get; set; }
     public string PlayerId { get; set; }

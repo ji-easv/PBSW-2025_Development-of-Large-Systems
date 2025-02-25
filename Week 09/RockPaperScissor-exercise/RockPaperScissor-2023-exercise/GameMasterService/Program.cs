@@ -2,6 +2,7 @@
 using Events;
 using Helpers;
 using Monolith;
+using OpenTelemetry;
 
 public class Program
 {
@@ -19,6 +20,7 @@ public class Program
             var subscriptionResult = bus.PubSub
                 .SubscribeAsync<PlayerMovedEvent>("RPS", e =>
                 {
+                    e.ExtractPropagatedContext();
                     var finishedEvent = game.ReceivePlayerEvent(e);
                     if (finishedEvent != null)
                     {
